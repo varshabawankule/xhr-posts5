@@ -19,6 +19,11 @@ Swal.fire({
 })
 }
 
+function tooltip(){
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+}
 
 
 let postArr=[];
@@ -32,7 +37,7 @@ function createCards(arr){
          <div class="col-md-3 mb-3" id="${post.id}">
 
 <div class="card h-100">
-   <div class="card-header">
+   <div class="card-header" data-toggle="tooltip" data-placement="top" title="${post.title}">
     <h3>
         ${post.title}
     </h3>
@@ -55,6 +60,7 @@ function createCards(arr){
         `
     })
     postContainer.innerHTML= result
+    tooltip()
 }
 
 
@@ -110,7 +116,7 @@ function onSubmit(eve){
    col.innerHTML= `
         
 <div class="card h-100">
-   <div class="card-header">
+   <div class="card-header" data-toggle="tooltip" data-placement="top" title="${obj.title}">
     <h3>
         ${obj.title}
     </h3>
@@ -129,6 +135,7 @@ function onSubmit(eve){
 
    `
    postContainer.prepend(col)
+   tooltip()
     spinner.classList.add('d-none')
 
 snackBar(`New Post Added Successfully`, `success`)
@@ -170,6 +177,12 @@ userIdControl.value = EDIT_OBJ.userId
 
 addbtn.classList.add('d-none')
 updatebtn.classList.remove('d-none')
+
+  formPost.scrollIntoView({
+    behavior: "smooth",
+    block: 'start'
+})
+
 
     spinner.classList.add('d-none')
 
@@ -217,6 +230,19 @@ formPost.reset()
 
 addbtn.classList.remove('d-none')
 updatebtn.classList.add('d-none')
+
+col.scrollIntoView({
+    behavior:"smooth",
+    block: "center"
+})
+
+
+col.classList.add('highlight-card');
+
+setTimeout(()=>{
+col.classList.remove('highlight-card')
+}, 3000)
+
 
 snackBar(`The post with id ${UPDATE_ID} is updated successfully`, `success`)
     spinner.classList.add('d-none')
